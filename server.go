@@ -21,7 +21,8 @@ func main() {
 		func(c echo.Context) error {
 			u := new(User)
 			id := c.Param("id")
-			newId,err:=strconv.Atoi(id)
+			c.Logger().Error(id)
+			newId, err := strconv.Atoi(id)
 			if err != nil {
 				c.Logger().Debug(err)
 			}
