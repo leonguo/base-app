@@ -21,12 +21,14 @@ func main() {
 		func(c echo.Context) error {
 			u := new(User)
 			id := c.Param("id")
-			c.Logger().Error(id)
+			name := c.QueryParam("name")
+			c.Logger().Error(name)
 			newId, err := strconv.Atoi(id)
 			if err != nil {
 				c.Logger().Debug(err)
 			}
 			u.Id = newId
+			u.Name = name
 			return c.JSON(http.StatusOK, u)
 		})
 	//e.PUT("/users/:id", updateUser)
