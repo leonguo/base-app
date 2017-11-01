@@ -15,6 +15,7 @@ type User struct {
 
 func main() {
 	e := echo.New()
+	e.Debug = true
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
