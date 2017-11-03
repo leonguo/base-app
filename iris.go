@@ -3,6 +3,8 @@ package main
 import (
 	"github.com/kataras/iris"
 	"github.com/kataras/iris/mvc"
+	"github.com/kataras/iris/middleware/logger"
+	"github.com/kataras/iris/middleware/recover"
 )
 
 // Movie is our sample data structure.
@@ -42,7 +44,13 @@ var movies = []Movie{
 
 func main() {
 	app := iris.New()
+	app.Use(recover.New())
+	app.Use(logger.New())
 	app.Controller("/hello",new(MoviesController))
+
+	app.Get("test", func(ctx iris.Context) {
+		ctx.JSON(iris.Map{"message":"hello iris"})
+	})
 	app.Run(iris.Addr("localhost:8080"))
 }
 
