@@ -48,6 +48,10 @@ func main() {
 	app.Use(logger.New())
 	app.Controller("/hello",new(MoviesController))
 
+	app.Get("ping", func(ctx iris.Context) {
+		ctx.WriteString("pong")
+	})
+
 	app.Get("test", func(ctx iris.Context) {
 		ctx.JSON(iris.Map{"message":"hello iris"})
 	})
