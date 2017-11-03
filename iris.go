@@ -46,6 +46,9 @@ func main() {
 	app := iris.New()
 	app.Use(recover.New())
 	app.Use(logger.New())
+
+	app.OnErrorCode(iris.StatusNotFound,notFoundHandler)
+
 	app.Controller("/hello",new(MoviesController))
 
 	app.Get("ping", func(ctx iris.Context) {
@@ -68,4 +71,8 @@ type MoviesController struct {
 // curl -i http://localhost:8080/movies
 func (c *MoviesController) Get() []Movie {
 	return movies
+}
+
+func notFoundHandler(ctx iris.Context) {
+	ctx.JSON(iris.Map{"message":"not found"})
 }
