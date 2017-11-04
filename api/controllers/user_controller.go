@@ -6,6 +6,7 @@ import (
 
 	"github.com/kataras/iris/context"
 	"github.com/kataras/iris/mvc"
+	"echo-app/models"
 )
 
 // UserController is our /user controller.
@@ -86,7 +87,8 @@ func (c *UserController) GetLogin() mvc.Result {
 	if c.isLoggedIn() {
 		// if it's already logged in then destroy the previous session.
 	}
-	return mvc.Response{Code:200}
+	c.Ctx.Application().Logger().Warnf("get user info ")
+	return mvc.Response{Code:200,Object:models.User{ID:2,Username:"DDD"}}
 }
 
 // PostLogin handles POST: http://localhost:8080/user/register.
@@ -106,4 +108,11 @@ func (c *UserController) PostLogin() mvc.Result {
 	return mvc.Response{
 		Path: "/user/me",
 	}
+}
+
+func (c *UserController) GetMe() mvc.Result {
+	if c.isLoggedIn() {
+		// if it's already logged in then destroy the previous session.
+	}
+	return mvc.Response{Code:200,Object:models.User{ID:2,Username:"222"}}
 }
