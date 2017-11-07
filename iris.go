@@ -14,8 +14,6 @@ func main() {
 
 	app.OnErrorCode(iris.StatusNotFound,notFoundHandler)
 
-	app.Controller("/user",new(controllers.UserController))
-
 	app.Get("ping", func(ctx iris.Context) {
 		ctx.WriteString("pong")
 	})
@@ -23,15 +21,13 @@ func main() {
 		ctx.Next()
 	}
 	v1 := app.Party("/v1", authMiddleware)
-	usersAPI := v1.Party("/users")
+	usersAPI := v1.Party("/user")
 	{
 		// http://localhost:8080/api/users
 		usersAPI.Get("/", h)
 		usersAPI.Post("/", h)
 		// http://localhost:8080/api/users/42
-		usersAPI.Get("/{userid:int}", func(ctx iris.Context) {
-			ctx.Writef("user with id: %s", ctx.Params().Get("userid"))
-		})
+		usersAPI.Controller("/", new(controllers.UserController))
 	}
 	app.Run(iris.Addr("localhost:8080"))
 }
