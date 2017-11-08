@@ -24,8 +24,6 @@ func main() {
 	usersAPI := v1.Party("/user")
 	{
 		// http://localhost:8080/api/users
-		usersAPI.Get("/", h)
-		usersAPI.Post("/", h)
 		// http://localhost:8080/api/users/42
 		usersAPI.Controller("/", new(controllers.UserController))
 	}
