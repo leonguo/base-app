@@ -23,9 +23,13 @@ func main() {
 	v1 := app.Party("/v1", authMiddleware)
 	usersAPI := v1.Party("/user")
 	{
-		// http://localhost:8080/api/users
-		// http://localhost:8080/api/users/42
 		usersAPI.Controller("/", new(controllers.UserController))
+	}
+	// 节目
+	videoAPI := v1.Party("/video")
+	{
+		videoAPI.Get("/test", h)
+		videoAPI.Controller("/", new(controllers.VideoController))
 	}
 	app.Run(iris.Addr("localhost:8080"))
 }
