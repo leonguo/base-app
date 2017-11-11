@@ -5,6 +5,7 @@ import (
 	"github.com/kataras/iris/middleware/logger"
 	"github.com/kataras/iris/middleware/recover"
 	"echo-app/api/controllers"
+	"github.com/go-xorm/xorm"
 )
 
 func main() {
@@ -31,6 +32,17 @@ func main() {
 		videoAPI.Get("/test", h)
 		videoAPI.Controller("/", new(controllers.VideoController))
 	}
+
+	app.Get("/db/get", func(ctx iris.Context) {
+		orm, err := xorm.NewEngine("postgres", "")
+		if err != nil {
+			app.Logger().Fatalf("orm failed to initialized: %v", err)
+		}
+
+		iris.RegisterOnInterrupt(func() {
+			orm.Close()
+		})
+	})
 	app.Run(iris.Addr("localhost:8080"))
 }
 
