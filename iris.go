@@ -6,6 +6,7 @@ import (
 	"github.com/kataras/iris/middleware/recover"
 	"echo-app/api/controllers"
 	"github.com/go-xorm/xorm"
+	"time"
 )
 
 func main() {
@@ -42,6 +43,22 @@ func main() {
 		iris.RegisterOnInterrupt(func() {
 			orm.Close()
 		})
+
+		type User struct {
+			ID        int64
+			Salt      string
+			Username  string
+			Password  string    `xorm:"varchar(200)"`
+			Languages string    `xorm:"varchar(200)"`
+			CreatedAt time.Time `xorm:"created"`
+			UpdatedAt time.Time `xorm:"updated"`
+		}
+		err = orm.Sync2(new(User))
+		user := User{ID: 1}
+		if ok, _ := orm.Get(&user); ok {
+			ctx.Writef("user found: %#v", user)
+		}
+
 	})
 	app.Run(iris.Addr("localhost:8080"))
 }
