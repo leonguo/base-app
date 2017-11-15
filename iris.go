@@ -44,7 +44,7 @@ func main() {
 			orm.Close()
 		})
 
-		type User struct {
+		type Users struct {
 			ID        int64
 			Salt      string
 			Username  string
@@ -53,8 +53,8 @@ func main() {
 			CreatedAt time.Time `xorm:"created"`
 			UpdatedAt time.Time `xorm:"updated"`
 		}
-		err = orm.Sync2(new(User))
-		user := User{ID: 1}
+		err = orm.Sync2(new(Users))
+		user := Users{ID: 1}
 		if ok, _ := orm.Get(&user); ok {
 			ctx.Writef("user found: %#v", user)
 		}
