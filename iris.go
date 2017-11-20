@@ -5,6 +5,7 @@ import (
 	"github.com/kataras/iris/middleware/logger"
 	"github.com/kataras/iris/middleware/recover"
 	"echo-app/api/controllers"
+	_ "github.com/lib/pq"
 	"github.com/go-xorm/xorm"
 	"time"
 )
@@ -14,7 +15,7 @@ func main() {
 	app.Use(recover.New())
 	app.Use(logger.New())
 
-	app.OnErrorCode(iris.StatusNotFound,notFoundHandler)
+	app.OnErrorCode(iris.StatusNotFound, notFoundHandler)
 
 	app.Get("ping", func(ctx iris.Context) {
 		ctx.WriteString("pong")
@@ -35,7 +36,8 @@ func main() {
 	}
 
 	app.Get("/db/get", func(ctx iris.Context) {
-		orm, err := xorm.NewEngine("postgres", "")
+		conn := "postgres://postgres:123456@120.24.229.18/app?sslmode=disable"
+		orm, err := xorm.NewEngine("postgres", conn)
 		if err != nil {
 			app.Logger().Fatalf("orm failed to initialized: %v", err)
 		}
@@ -45,26 +47,26 @@ func main() {
 		})
 
 		type Users struct {
-			ID        int64
+			Uid       int64
 			Salt      string
 			Username  string
 			Password  string    `xorm:"varchar(200)"`
-			Languages string    `xorm:"varchar(200)"`
-			CreatedAt time.Time `xorm:"created"`
-			UpdatedAt time.Time `xorm:"updated"`
+			CreatedAt time.Time `xorm:"created_at"`
+			UpdatedAt time.Time `xorm:"updated_at"`
 		}
 		err = orm.Sync2(new(Users))
-		user := Users{ID: 1}
+		user := Users{Uid: 2}
 		if ok, _ := orm.Get(&user); ok {
-			ctx.Writef("user found: %#v", user)
+			ctx.Writef("user found: %v", user)
 		}
+		app.Logger().Info("user found username : ", user.Username)
 
 	})
 	app.Run(iris.Addr("localhost:8080"))
 }
 
 func notFoundHandler(ctx iris.Context) {
-	ctx.JSON(iris.Map{"message":"not found"})
+	ctx.JSON(iris.Map{"message": "not found"})
 }
 
 func h(ctx iris.Context) {
