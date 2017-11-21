@@ -2,7 +2,7 @@ package services
 
 import (
 	//"errors"
-	"echo-app/models"
+	"base-app/models"
 )
 
 // UserService handles CRUID operations of a user datamodel,

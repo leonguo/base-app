@@ -2,11 +2,11 @@ package controllers
 
 import (
 	//"echo-app/models"
-	"echo-app/services"
+	"base-app/services"
 
 	"github.com/kataras/iris/context"
 	"github.com/kataras/iris/mvc"
-	"echo-app/models"
+	"base-app/models"
 )
 
 // UserController is our /user controller.
