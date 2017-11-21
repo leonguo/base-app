@@ -4,7 +4,7 @@ import (
 	"github.com/kataras/iris"
 	"github.com/kataras/iris/middleware/logger"
 	"github.com/kataras/iris/middleware/recover"
-	"echo-app/api/controllers"
+	"base-app/api/controllers"
 	_ "github.com/lib/pq"
 	"github.com/go-xorm/xorm"
 	"time"
