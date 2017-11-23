@@ -28,7 +28,7 @@ func main() {
 	{
 		usersAPI.Controller("/", new(controllers.UserController))
 	}
-	// 节目
+	// 专辑
 	filminfoAPI := v1.Party("/filminfo")
 	{
 		filminfoAPI.Get("/test", h)
