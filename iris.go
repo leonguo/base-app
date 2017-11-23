@@ -29,6 +29,12 @@ func main() {
 		usersAPI.Controller("/", new(controllers.UserController))
 	}
 	// 节目
+	filminfoAPI := v1.Party("/filminfo")
+	{
+		filminfoAPI.Get("/test", h)
+		filminfoAPI.Controller("/", new(controllers.FilminfoController))
+	}
+	// 节目
 	videoAPI := v1.Party("/video")
 	{
 		videoAPI.Get("/test", h)
