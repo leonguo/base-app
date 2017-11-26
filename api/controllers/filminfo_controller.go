@@ -7,13 +7,11 @@ import (
 	"base-app/models"
 )
 
-// VideoController is our /user controller.
+// VideoController is our /filminfo controller.
 // VideoController is responsible to handle the following requests:
-// GET  			/user/register
-// POST 			/user/register
-// GET 				/user/login
-// POST 			/user/login
-// GET 				/user/me
+// GET  			/filminfo/detail
+// POST 			/filminfo/upsert
+// GET 				/filminfo/list
 // All HTTP Methods /user/logout
 type FilminfoController struct {
 	// mvc.C is just a lightweight lightweight alternative
