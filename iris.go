@@ -53,12 +53,15 @@ func main() {
 		})
 
 		type Users struct {
-			Uid       int64
-			Salt      string
-			Username  string
-			Password  string    `xorm:"varchar(200)"`
-			CreatedAt time.Time `xorm:"created_at"`
-			UpdatedAt time.Time `xorm:"updated_at"`
+			Uid       int64  `xorm:"notnull"`
+			Salt      string `xorm:"notnull"`
+			Phone     string `xorm:"notnull"`
+			Nickname  string `xorm:"notnull"`
+			Active    int    `xorm:"notnull"`
+			Username  string `xorm:"notnull"`
+			Password  string `xorm:"notnull varchar(200)"`
+			CreatedAt time.Time
+			UpdatedAt time.Time
 		}
 		err = orm.Sync2(new(Users))
 		user := Users{Uid: 2}
