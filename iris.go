@@ -57,7 +57,7 @@ func main() {
 			Salt      string `xorm:"notnull"`
 			Phone     string `xorm:"notnull"`
 			Nickname  string `xorm:"notnull"`
-			Active    int8   `xorm:"notnull"`
+			Active    int    `xorm:"notnull"`
 			Username  string `xorm:"notnull"`
 			Password  string `xorm:"notnull varchar(200)"`
 			CreatedAt time.Time
