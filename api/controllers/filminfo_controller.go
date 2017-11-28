@@ -77,9 +77,6 @@ func (c *FilminfoController) PostRegister() mvc.Result {
 
 // GetLogin handles GET: http://localhost:8080/user/login.
 func (c *FilminfoController) GetLogin() mvc.Result {
-	if c.isLoggedIn() {
-		// if it's already logged in then destroy the previous session.
-	}
 	c.Ctx.Application().Logger().Warnf("get user info ")
 	return mvc.Response{Code: 200, Object: models.User{ID: 2, Username: "DDD"}}
 }
